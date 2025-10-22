@@ -70,8 +70,8 @@ function createCardElement(card) {
     cardElement.href = card.knowtUrl;
     cardElement.target = "_blank"; 
     
-    // Taller card height h-52 is maintained
-    cardElement.className = 'block h-52 p-6 card-gradient-bg rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-primary-blue group card-glow cursor-pointer';
+    // MODIFIED: Removed hover:-translate-y-1. Now only relies on custom CSS transform.
+    cardElement.className = 'block h-52 p-6 card-gradient-bg rounded-xl shadow-lg transition-all duration-300 transform border border-transparent hover:border-primary-blue group card-glow card-tilt-effect cursor-pointer';
 
     const title = document.createElement('h3');
     // text-2xl size is maintained
@@ -92,6 +92,7 @@ function createCardElement(card) {
 
 function renderFlashcards() { 
     subjects.forEach(subjectData => {
+        // REVERTED: Simple H2 element with standard Tailwind classes
         const sectionHeader = document.createElement('h2');
         
         // Subject header uses standard Tailwind border/spacing for the line
@@ -175,10 +176,20 @@ function initializeKineticText() {
     if (!headerContainer) return;
     headerContainer.innerHTML = ''; 
     
-    chars = HEADER_TEXT.split('').map((char) => {
+    chars = HEADER_TEXT.split('').map((char, index) => {
         const span = document.createElement('span');
         span.textContent = char === ' ' ? '\u00A0' : char; 
         span.className = 'kinetic-char';
+
+        // Split the words: "Joel's " (7 chars) is white, "Flashcards" (starts at index 7) is blue
+        if (index < 7) { 
+            // Joel's (and space) - should be White
+            span.classList.add('text-initial-white');
+        } else {
+            // Flashcards - should be Blue (uses the primary-blue color from Tailwind config)
+            span.classList.add('text-primary-blue');
+        }
+        
         headerContainer.appendChild(span);
         return span;
     });
