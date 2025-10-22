@@ -1,0 +1,107 @@
+/* --- Custom CSS for Dark Theme & Effects --- */
+
+/* Custom scrollbar for a sleek dark theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1f2937; /* Dark Grey track */
+}
+::-webkit-scrollbar-thumb {
+    background: #3b82f6; /* Blue thumb */
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #60a5fa; /* Lighter blue on hover */
+}
+
+/* Ensures the body gradient is correct (defined via Tailwind classes in index.html) */
+body {
+    font-family: 'Inter', sans-serif; /* Keeps card/body text on Inter/sans-serif */
+    background-attachment: fixed; 
+}
+
+/* --- Card Gradient and Glow --- */
+
+/* Define Card Gradient Background: Subtle transition for depth (Dark Gray/Slate) */
+.card-gradient-bg {
+    background-image: linear-gradient(135deg, #2b2b2b, #1a1a1a); 
+}
+
+/* Card Glow Effect (Persistent Subtle Glow) */
+.card-glow {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); 
+    /* Kept: Faster (0.15s) and Smoother (ease) transition for cards */
+    transition: box-shadow 0.15s ease, transform 0.15s ease; 
+}
+
+/* Shimmer Effect on Hover */
+.card-glow:hover {
+    animation: shimmer 1.5s infinite alternate;
+}
+
+@keyframes shimmer {
+    from { 
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.5), 0 0 5px rgba(59, 130, 246, 0.2); 
+    }
+    to { 
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.7), 0 0 10px rgba(59, 130, 246, 0.4);
+    }
+}
+
+/* --- Button Gradient Style --- */
+.button-gradient {
+    background-image: linear-gradient(90deg, #3b82f6, #4f46e5); 
+}
+
+/* ======================================================= */
+/* SUBJECT HEADER & STATIC LINE STYLES (CLEAN) */
+/* ======================================================= */
+
+/* Target the H2 element inside the flashcard container */
+#flashcard-container h2 {
+    margin-bottom: 0 !important; 
+}
+
+.subject-static-line {
+    display: none; 
+}
+
+/* ======================================================= */
+/* KINETIC TEXT EFFECT STYLES */
+/* ======================================================= */
+
+#header-text-container {
+    position: relative; 
+    font-family: 'Varela Round', sans-serif;
+}
+
+.kinetic-char {
+    display: inline-block;
+    /* Transition set to 0.8s for slow fade in/out */
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                color 0.8s ease, 
+                text-shadow 0.8s ease;
+    
+    /* Default dark theme color */
+    color: var(--text-light-grey, #f0f0f0); 
+    
+    /* Default subtle glow/shadow (Faint White) */
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5); 
+    
+    animation: none;
+}
+
+/* New Hover/Move Effect: Restore to a static blue glow on hover */
+#header-text-container:hover .kinetic-char {
+    /* Set text color to a brighter white */
+    color: #ffffff;
+    
+    /* Apply a stronger, static blue glow */
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 
+                 0 0 15px rgba(59, 130, 246, 0.5);
+
+    /* REMOVED: animation: shifting-glow 2s infinite alternate; */
+}
+
+/* REMOVED: The @keyframes shifting-glow block */

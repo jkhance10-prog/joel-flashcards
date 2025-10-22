@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joel's Flashcards</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#3b82f6', 
+                        'light-grey': '#e5e7eb',  
+                        'medium-grey': '#9ca3af', 
+                        // Colors for the Body Gradient (Dark Gray)
+                        'dark-bg-start': '#1c1c1c', 
+                        'dark-bg-end': '#0c0c0c',   
+                        // Solid color for header background (used for button text)
+                        'header-bg': '#1f2937', 
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-br from-dark-bg-start to-dark-bg-end min-h-screen text-light-grey">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 min-h-[800px]">
+        
+        <div class="text-center mb-12">
+            <p id="header-text-container" class="text-light-grey text-6xl sm:text-8xl font-extrabold tracking-tight cursor-default whitespace-nowrap inline-block">
+                </p>
+        </div>
+        
+        <div id="flashcard-container" class="space-y-12">
+            </div>
+
+        <div class="text-center mt-12 py-6">
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+                
+                <a id="main-folder-link" href="https://knowt.com/folder/6dc7b859-b8a9-4cf3-a504-67c93f98f53d" target="_blank" 
+                   class="inline-block button-gradient text-header-bg font-extrabold text-xl sm:text-2xl 
+                          py-5 px-12 rounded-[3rem] 
+                          transition-all duration-300 transform 
+                          hover:scale-105 hover:shadow-[0_0_2px_#3b82f6,0_0_8px_#4f46e5] 
+                          active:scale-90 active:shadow-inner shadow-xl">
+                    Knowt Folder
+                </a>
+                
+                <a id="google-doc-link" href="https://docs.google.com/document/d/1B33Pq7YF4LixP2alxRfH0XvZOStDp9D63sD7KkKHinE/edit?usp=sharing" target="_blank" 
+                   class="inline-block button-gradient text-header-bg font-extrabold text-xl sm:text-2xl 
+                          py-5 px-12 rounded-[3rem] 
+                          transition-all duration-300 transform 
+                          hover:scale-105 hover:shadow-[0_0_2px_#3b82f6,0_0_8px_#4f46e5] 
+                          active:scale-90 active:shadow-inner shadow-xl">
+                    Google Doc
+                </a>
+            </div>
+        </div>
+        
+    </main>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
