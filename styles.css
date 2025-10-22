@@ -1,4 +1,4 @@
-/* --- Custom CSS for Dark Theme & Effects --- */
+/* --- Custom CSS for Dark Theme & Effects (Optimized for Smoothness) --- */
 
 /* Custom scrollbar for a sleek dark theme */
 ::-webkit-scrollbar {
@@ -17,11 +17,12 @@
 
 /* Ensures the body gradient is correct (defined via Tailwind classes in index.html) */
 body {
-    font-family: 'Inter', sans-serif; /* Keeps card/body text on Inter/sans-serif */
+    font-family: 'Inter', sans-serif; 
     background-attachment: fixed; 
 }
 
 /* --- Card Gradient and Glow --- */
+/* ... (Card styles remain unchanged) ... */
 
 /* Define Card Gradient Background: Subtle transition for depth (Dark Gray/Slate) */
 .card-gradient-bg {
@@ -30,14 +31,16 @@ body {
 
 /* Card Glow Effect (Persistent Subtle Glow) */
 .card-glow {
+    /* OPTIMIZATION: Use box-shadow for simple glow, keep transition accelerated for transform */
     box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); 
-    /* Kept: Faster (0.15s) and Smoother (ease) transition for cards */
-    transition: box-shadow 0.15s ease, transform 0.15s ease; 
+    /* Removed redundant transform transition here to let card-tilt-effect control it */
+    transition: box-shadow 0.15s ease; 
 }
 
 /* Shimmer Effect on Hover */
 .card-glow:hover {
-    animation: shimmer 1.5s infinite alternate;
+    /* OPTIMIZATION: Reduced shimmer intensity */
+    animation: shimmer 1s infinite alternate;
 }
 
 @keyframes shimmer {
@@ -55,20 +58,113 @@ body {
 }
 
 /* ======================================================= */
-/* SUBJECT HEADER & STATIC LINE STYLES (CLEAN) */
+/* ANIMATED BUTTON EFFECT - FIXED FOR CONTINUOUS FLOW */
 /* ======================================================= */
 
-/* Target the H2 element inside the flashcard container */
+.animated-button {
+    /* Base positioning for inner background animation */
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Ensure text is above background */
+    
+    /* Hardware-accelerated transitions */
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+/* Create the continuously moving, larger background gradient */
+.animated-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    
+    /* Bigger, more vivid gradient colors */
+    /* Note: Using a diagonal gradient (60deg) for better flow visualization */
+    background: linear-gradient(60deg, #1c1c1c, #3b82f6, #4f46e5, #3b82f6, #1c1c1c);
+    
+    background-size: 200% 200%; 
+    z-index: -1; /* Place behind text */
+    
+    /* Initial subtle animation (slow perpetual movement) */
+    animation: gradient-shift 10s linear infinite;
+    
+    /* Ensures the button text color remains visible */
+    mix-blend-mode: screen; 
+    opacity: 0.9;
+    
+    /* Smooth transition for when we change the animation speed on hover */
+    transition: animation-duration 0.2s;
+}
+
+/* Animation for the continuous shift: The key is removing the 50% midpoint. */
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    /* The animation runs for the full duration from 0% to 100%, then jumps back to 0% to loop. */
+    100% { background-position: 100% 50%; } 
+}
+
+/* Hover Micro-interaction: Scale, Shadow, and Speed Up */
+.animated-button:hover {
+    /* Scale up slightly for the "pop" effect */
+    transform: scale(1.05);
+    
+    /* Add a pronounced glow to the shadow (similar to card glow) */
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.8);
+}
+
+/* Hover: Speed up the background animation significantly */
+.animated-button:hover::before {
+    animation-duration: 3s; /* Much faster movement for the micro-interaction */
+    opacity: 1;
+}
+
+
+/* ======================================================= */
+/* CARD 3D TILT INTERACTIVE STYLES - No Change */
+/* ======================================================= */
+
+/* Add perspective to the cards' container (the grid gap) */
+.grid {
+    perspective: 1000px;
+}
+
+/* Set up the individual card for the 3D effect */
+.card-tilt-effect {
+    /* Set the base transform to a neutral 3D position for hardware acceleration */
+    transform: translateZ(0); 
+    transform-origin: center bottom; 
+    transform-style: preserve-3d;
+    
+    /* MODIFIED: The main transform transition is defined here */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27), box-shadow 0.2s ease;
+}
+
+/* Apply the lift and tilt on hover */
+.card-tilt-effect:hover {
+    /* Combined transform: lift up (-6px), tilt slightly, move forward (z-axis), and scale */
+    transform: translateY(-6px) rotateX(3deg) rotateY(1deg) translateZ(15px) scale(1.005);
+}
+
+
+/* ======================================================= */
+/* SUBJECT HEADER STYLES - No Change */
+/* ======================================================= */
+
+/* Ensure default styling remains simple for H2 */
 #flashcard-container h2 {
-    margin-bottom: 0 !important; 
+    /* Reverts back to standard Tailwind spacing */
+    margin-top: 2.5rem; /* mt-10 */
+    margin-bottom: 1.5rem; /* mb-6 */
+    /* Re-applies the original blue line */
+    border-bottom: 2px solid #3b82f6; 
+    padding-bottom: 0.5rem; /* pb-2 */
 }
 
-.subject-static-line {
-    display: none; 
-}
 
 /* ======================================================= */
-/* KINETIC TEXT EFFECT STYLES */
+/* KINETIC TEXT EFFECT STYLES (No Change) */
 /* ======================================================= */
 
 #header-text-container {
@@ -78,12 +174,12 @@ body {
 
 .kinetic-char {
     display: inline-block;
-    /* Transition set to 0.8s for slow fade in/out */
+    /* Transition set to 0.8s for slow fade in/out of color/glow */
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
                 color 0.8s ease, 
-                text-shadow 0.8s ease;
+                text-shadow 0.8s ease; 
     
-    /* Default dark theme color */
+    /* Default base color (Will be overridden by specific classes below) */
     color: var(--text-light-grey, #f0f0f0); 
     
     /* Default subtle glow/shadow (Faint White) */
@@ -92,16 +188,29 @@ body {
     animation: none;
 }
 
-/* New Hover/Move Effect: Restore to a static blue glow on hover */
+/* New Hover/Move Effect: Apply a consistent, bright glow to ALL characters */
 #header-text-container:hover .kinetic-char {
-    /* Set text color to a brighter white */
+    /* Set all text to brightest white */
     color: #ffffff;
     
     /* Apply a stronger, static blue glow */
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 
-                 0 0 15px rgba(59, 130, 246, 0.5);
-
-    /* REMOVED: animation: shifting-glow 2s infinite alternate; */
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.8); 
 }
 
-/* REMOVED: The @keyframes shifting-glow block */
+/* ======================================================= */
+/* KINETIC TEXT INITIAL COLOR OVERRIDES (No Change) */
+/* ======================================================= */
+
+/* Ensures the 'Joel's' portion remains white initially, overriding base .kinetic-char color */
+.kinetic-char.text-initial-white {
+    color: var(--text-light-grey, #f0f0f0) !important; 
+}
+
+/* Ensures the 'Flashcards' portion is primary-blue initially */
+.kinetic-char.text-primary-blue {
+    /* Using the primary-blue defined in Tailwind config: #3b82f6 */
+    color: #3b82f6 !important;
+    
+    /* Adjust default subtle glow to blue for the blue text for consistency */
+    text-shadow: 0 0 4px rgba(59, 130, 246, 0.5); 
+}
