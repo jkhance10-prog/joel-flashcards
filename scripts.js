@@ -3,19 +3,19 @@
 // =================================================================
 const subjects = [
     {
-        name: "Mr. Cline Vocab",
+        name: "Honors ELA 2",
         cards: [
-            { term: "Cline Vocab: Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6" },
-            { term: "Cline Vocab: Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043" },
-            { term: "Cline Vocab: Mor, bene, omni...", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959" },
+            { term: "Roots - Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6" },
+            { term: "Roots - Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043" },
+            { term: "Roots - Mor, bene, omni…", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959" },
         ]
     },
     {
-        name: "Mr. Hodge Chemistry",
+        name: "Honors Chemistry 1",
         cards: [
-            { term: "Hodge Chem: Unit 1 and 2 Objectives", knowtUrl: "https://knowt.com/flashcards/108f2415-7e4b-408a-a9b9-e1cffb5eb015" },
-            { term: "Hodge Chem: Unit 2", knowtUrl: "https://knowt.com/flashcards/6e32d56a-f8bc-4863-8256-5182a7d02f7d" },
-            { term: "Hodge Chem: Unit 3", knowtUrl: "https://knowt.com/flashcards/3a391478-d695-428b-85c3-e4f33250c466" },
+            { term: "Unit 1 and 2 Objectives", knowtUrl: "https://knowt.com/flashcards/108f2415-7e4b-408a-a9b9-e1cffb5eb015" },
+            { term: "Unit 2", knowtUrl: "https://knowt.com/flashcards/6e32d56a-f8bc-4863-8256-5182a7d02f7d" },
+            { term: "Unit 3", knowtUrl: "https://knowt.com/flashcards/3a391478-d695-428b-85c3-e4f33250c466" },
         ]
     }
 ];
@@ -27,13 +27,7 @@ const container = document.getElementById('flashcard-container');
 // =================================================================
 
 function cleanCardTitle(title) {
-    const prefixes = ["Cline Vocab: ", "Hodge Chem: "];
-    for (const prefix of prefixes) {
-        if (title.startsWith(prefix)) {
-            return title.substring(prefix.length);
-        }
-    }
-    return title;
+    return title; 
 }
 
 function createCardElement(card) {
@@ -181,9 +175,5 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFlashcards();
     initializeKineticText(); 
     
-    // Loading Fade-In Logic
-    const body = document.body;
-    setTimeout(() => {
-        body.classList.add('loaded');
-    }, 100); 
+    // REMOVED FADE-IN LOGIC
 });
