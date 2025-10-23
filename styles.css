@@ -27,21 +27,6 @@ body {
 }
 
 /* ======================================================= */
-/* LOADING FADE-IN EFFECT */
-/* ======================================================= */
-
-/* Base state: Invisible and ready for a slow transition */
-.loading-fade {
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-}
-
-/* Target state: Fully visible */
-.loading-fade.loaded {
-    opacity: 1;
-}
-
-/* ======================================================= */
 /* CARD STYLES */
 /* ======================================================= */
 
