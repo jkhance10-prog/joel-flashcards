@@ -44,7 +44,7 @@ function createCardElement(card) {
     
     const cta = document.createElement('p');
     cta.className = 'text-primary-blue text-base font-bold mt-4 pt-2'; 
-    cta.textContent = 'View Study Set →';
+    cta.textContent = 'Study Knowt Set →'; 
 
     cardElement.appendChild(title);
     cardElement.appendChild(cta);
@@ -174,6 +174,4 @@ function initializeKineticText() {
 document.addEventListener('DOMContentLoaded', () => {
     renderFlashcards();
     initializeKineticText(); 
-    
-    // REMOVED FADE-IN LOGIC
 });
