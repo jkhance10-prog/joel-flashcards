@@ -5,7 +5,7 @@ A lil side project that looks neat
 ## Features
 * **Dark/Light Mode** Toggle
 * **3D Card Tilt** on hover
-* **GlowingHeader Text**
+* **Glowing** Header Text
 
 ## Code
 HTML, Tailwind CSS, Vanilla JS.
