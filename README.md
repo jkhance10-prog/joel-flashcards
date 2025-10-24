@@ -1,6 +1,6 @@
 # Joel's Flashcards 📚
 
-A modern, clean web app for studying flashcards.
+A lil side project that looks neat
 
 ## Features
 * **Dark/Light Mode** Toggle
@@ -11,8 +11,5 @@ A modern, clean web app for studying flashcards.
 HTML, Tailwind CSS, Vanilla JS.
 
 ## 🔗 Links
-* Knowt Folder: [Link to Your Knowt Folder]
-* Google Doc: [Link to Your Google Doc]
-
-## 🚀 Run It
-Clone the repo and open `index.html`.
+* Knowt Folder: https://knowt.com/folder/6dc7b859-b8a9-4cf3-a504-67c93f98f53d
+* Google Doc: https://docs.google.com/document/d/1B33Pq7YF4LixP2alxRfH0XvZOStDp9D63sD7KkKHinE/edit?usp=sharing
