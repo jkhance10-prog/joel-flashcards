@@ -2,11 +2,10 @@
 
 A modern, clean web app for studying flashcards.
 
-## ✨ Features
+## Features
 * **Dark/Light Mode** Toggle
 * **3D Card Tilt** on hover
-* **Kinetic Header Text**
-* Smooth UI transitions (1.0s)
+* **GlowingHeader Text**
 
 ## 🛠️ Tech
 HTML, Tailwind CSS, Vanilla JS.
