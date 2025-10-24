@@ -168,10 +168,51 @@ function initializeKineticText() {
 
 
 // =================================================================
+// THEME TOGGLE LOGIC (UPDATED FOR SLIDER CHECKBOX)
+// =================================================================
+
+function applyTheme(isLight) {
+    const body = document.body;
+    const toggleCheckbox = document.getElementById('theme-toggle');
+    
+    if (isLight) {
+        body.classList.add('light-mode');
+        // Set checkbox state to checked
+        toggleCheckbox.checked = true; 
+    } else {
+        body.classList.remove('light-mode');
+        // Set checkbox state to unchecked
+        toggleCheckbox.checked = false;
+    }
+}
+
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Default to dark, unless saved theme is 'light'
+    const isLight = savedTheme === 'light'; 
+    
+    // Apply initial theme
+    applyTheme(isLight);
+    
+    // Use the 'change' event on the hidden checkbox
+    document.getElementById('theme-toggle').addEventListener('change', (e) => {
+        const isCurrentlyLight = e.target.checked;
+        
+        // Toggle the theme
+        applyTheme(isCurrentlyLight);
+        
+        // Save the new preference
+        localStorage.setItem('theme', isCurrentlyLight ? 'light' : 'dark');
+    });
+}
+
+// =================================================================
 // MAIN EXECUTION
 // =================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
     renderFlashcards();
-    initializeKineticText(); 
+    initializeKineticText();
+    initializeTheme(); 
 });
