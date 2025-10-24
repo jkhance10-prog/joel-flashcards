@@ -14,7 +14,7 @@ const subjects = [
         name: "Honors Chemistry 1",
         cards: [
             { term: "Unit 1 and 2 Objectives", knowtUrl: "https://knowt.com/flashcards/108f2415-7e4b-408a-a9b9-e1cffb5eb015" },
-            { term: "Unit 2", knowtUrl: "https://knowt.com/flashcards/6e32d56a-f8bc-4863-8256-5182a7d02f7d" },
+            { term: "Unit 2", knowtUrl: "https://youtu.be/dQw4w9WgXcQ?list=RDdQw4w9WgXcQ" },
             { term: "Unit 3", knowtUrl: "https://knowt.com/flashcards/3a391478-d695-428b-85c3-e4f33250c466" },
         ]
     }
