@@ -32,6 +32,10 @@
                         'dark-bg-start': '#1c1c1c', 
                         'dark-bg-end': '#0c0c0c',   
                         'header-bg': '#1f2937', 
+                        // NEW LIGHT MODE COLORS
+                        'light-bg-start': '#f9fafb',
+                        'light-bg-end': '#ffffff',
+                        'dark-text': '#1f2937', 
                     }
                 }
             }
@@ -40,6 +44,14 @@
 </head>
 
 <body class="bg-gradient-to-br from-dark-bg-start to-dark-bg-end min-h-screen text-light-grey">
+    
+    <div class="fixed top-6 right-6 z-50">
+        <input type="checkbox" id="theme-toggle" class="hidden">
+        <label for="theme-toggle" class="w-14 h-7 flex items-center rounded-full p-1 cursor-pointer theme-toggle-label">
+            <div class="w-6 h-6 bg-light-grey rounded-full shadow-md transform transition-all duration-500 toggle-ball"></div>
+        </label>
+    </div>
+    
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 min-h-[800px]">
         
         <div class="text-center mb-12">
