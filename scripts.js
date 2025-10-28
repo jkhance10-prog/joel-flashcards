@@ -7,7 +7,7 @@ const subjects = [
         cards: [
             { term: "Roots - Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6" },
             { term: "Roots - Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043" },
-            { term: "Roots - Mor, bene, omni…", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959" },
+            { term: "Roots - Mor, bene, omni, phil", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959" },
         ]
     },
     {
