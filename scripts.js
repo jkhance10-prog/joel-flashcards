@@ -5,17 +5,24 @@ const subjects = [
     {
         name: "Honors ELA 2",
         cards: [
-            { term: "Roots - Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6" },
+            { term: "Roots - Mor, bene, omni, phil", knowtUrl: "https://knowt.com/flashcards/f115c6f7-3667-4efe-b969-ee59e877d9cf" },
             { term: "Roots - Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043" },
-            { term: "Roots - Mor, bene, omni, phil", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959" },
+            { term: "Roots - Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6" },
         ]
     },
     {
         name: "Honors Chemistry 1",
         cards: [
             { term: "Unit 1 and 2 Objectives", knowtUrl: "https://knowt.com/flashcards/108f2415-7e4b-408a-a9b9-e1cffb5eb015" },
-            { term: "Unit 2", knowtUrl: "https://google.com" },
+            { term: "Unit 2", knowtUrl: "https://knowt.com/flashcards/6e32d56a-f8bc-4863-8256-5182a7d02f7d" },
             { term: "Unit 3", knowtUrl: "https://knowt.com/flashcards/3a391478-d695-428b-85c3-e4f33250c466" },
+            { term: "Common Polyatomic Ions", knowtUrl: "https://knowt.com/flashcards/f115c6f7-3667-4efe-b969-ee59e877d9cf" },
+        ]
+    },
+    {
+        name: "AP Euro",
+        cards: [
+            { term: "Unit 1 - Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/a03bffdf-5fda-481c-8788-60dbef0003ec" },
         ]
     }
 ];
@@ -35,7 +42,6 @@ function createCardElement(card) {
     cardElement.href = card.knowtUrl;
     cardElement.target = "_blank"; 
     
-    // min-h-[220px] for the flashcard look
     cardElement.className = 'block min-h-[220px] p-6 card-gradient-bg rounded-xl shadow-lg transition-all duration-300 transform border border-transparent hover:border-primary-blue group card-glow card-tilt-effect cursor-pointer flex flex-col justify-between';
 
     const title = document.createElement('h3');
@@ -147,7 +153,6 @@ function initializeKineticText() {
         span.textContent = char === ' ' ? '\u00A0' : char; 
         span.className = 'kinetic-char';
 
-        // Split words for color application: "Joel's " (7 chars) is white, "Flashcards" (starts at index 7) is blue
         if (index < 7) { 
             span.classList.add('text-initial-white');
         } else {
@@ -168,7 +173,7 @@ function initializeKineticText() {
 
 
 // =================================================================
-// THEME TOGGLE LOGIC (UPDATED FOR SLIDER CHECKBOX)
+// THEME TOGGLE LOGIC
 // =================================================================
 
 function applyTheme(isLight) {
@@ -177,32 +182,20 @@ function applyTheme(isLight) {
     
     if (isLight) {
         body.classList.add('light-mode');
-        // Set checkbox state to checked
         toggleCheckbox.checked = true; 
     } else {
         body.classList.remove('light-mode');
-        // Set checkbox state to unchecked
         toggleCheckbox.checked = false;
     }
 }
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme');
-    
-    // Default to dark, unless saved theme is 'light'
     const isLight = savedTheme === 'light'; 
-    
-    // Apply initial theme
     applyTheme(isLight);
-    
-    // Use the 'change' event on the hidden checkbox
     document.getElementById('theme-toggle').addEventListener('change', (e) => {
         const isCurrentlyLight = e.target.checked;
-        
-        // Toggle the theme
         applyTheme(isCurrentlyLight);
-        
-        // Save the new preference
         localStorage.setItem('theme', isCurrentlyLight ? 'light' : 'dark');
     });
 }
