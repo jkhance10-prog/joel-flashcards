@@ -5,9 +5,10 @@ const subjects = [
     {
         name: "Honors ELA 2",
         cards: [
-            { term: "Roots - Mor, bene, omni, phil", knowtUrl: "https://knowt.com/flashcards/f115c6f7-3667-4efe-b969-ee59e877d9cf" },
+            { term: "Roots - Mor, bene, omni, phil", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959" },
             { term: "Roots - Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043" },
             { term: "Roots - Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6" },
+            { term: "AP Practice Definitions", knowtUrl: "https://knowt.com/flashcards/75248ed1-83cb-4c37-9705-071d844a1cb6" }
         ]
     },
     {
@@ -22,7 +23,8 @@ const subjects = [
     {
         name: "AP Euro",
         cards: [
-            { term: "Unit 1 - Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/a03bffdf-5fda-481c-8788-60dbef0003ec" },
+            { term: "Unit 1 Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/a03bffdf-5fda-481c-8788-60dbef0003ec" },
+            { term: "Unit 2 Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/d85b0678-c9fc-40be-b13e-a2bff19873a5" }
         ]
     }
 ];
