@@ -9,6 +9,8 @@ const subjects = [
             { term: "Roots - Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043" },
             { term: "Roots - Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6" },
             { term: "AP Practice Definitions", knowtUrl: "https://knowt.com/flashcards/75248ed1-83cb-4c37-9705-071d844a1cb6" }
+            { term: "Roots - Ante, theo, mono, greg", knowtUrl: "https://knowt.com/flashcards/f41fc165-2074-4db7-acf8-433c3adb1ae4" }
+
         ]
     },
     {
