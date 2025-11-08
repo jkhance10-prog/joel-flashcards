@@ -1,214 +1,258 @@
-// =================================================================
-// FLASHCARD DATA
-// =================================================================
-const subjects = [
-    {
-        name: "Honors ELA 2",
-        cards: [
-            { term: "Roots - Mor, bene, omni, phil", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959" },
-            { term: "Roots - Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043" },
-            { term: "Roots - Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6" },
-            { term: "AP Practice Definitions", knowtUrl: "https://knowt.com/flashcards/75248ed1-83cb-4c37-9705-071d844a1cb6" },
-            { term: "Roots - Ante, theo, mono, greg", knowtUrl: "https://knowt.com/flashcards/f41fc165-2074-4db7-acf8-433c3adb1ae4" }
-        ]
-    },
-    {
-        name: "Honors Chemistry 1",
-        cards: [
-            { term: "Unit 1 and 2 Objectives", knowtUrl: "https://knowt.com/flashcards/108f2415-7e4b-408a-a9b9-e1cffb5eb015" },
-            { term: "Unit 2", knowtUrl: "https://knowt.com/flashcards/6e32d56a-f8bc-4863-8256-5182a7d02f7d" },
-            { term: "Unit 3", knowtUrl: "https://knowt.com/flashcards/3a391478-d695-428b-85c3-e4f33250c466" },
-            { term: "Common Polyatomic Ions", knowtUrl: "https://knowt.com/flashcards/f115c6f7-3667-4efe-b969-ee59e877d9cf" },
-        ]
-    },
-    {
-        name: "AP Euro",
-        cards: [
-            { term: "Unit 1 Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/a03bffdf-5fda-481c-8788-60dbef0003ec" },
-            { term: "Unit 2 Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/d85b0678-c9fc-40be-b13e-a2bff19873a5" }
-        ]
+(function() {
+    // =================================================================
+    // CONSTANTS
+    // =================================================================
+    const SELECTORS = {
+        flashcardContainer: 'flashcard-container',
+        headerTextContainer: 'header-text-container',
+        themeToggle: 'theme-toggle',
+    };
+
+    const HEADER_TEXT = "Joel's Flashcards";
+
+    const KINETIC_SETTINGS = {
+        repelRadius: 120,
+        maxRepel: 40,
+        orbitStrength: 0.5
+    };
+
+    // =================================================================
+    // FLASHCARD DATA
+    // =================================================================
+    const subjects = [
+        {
+            name: "Honors ELA 2",
+            cards: [
+                { term: "Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6", quizletUrl: "https://quizlet.com/1100724141/cline-vocab-cide-mal-intra-soph-flash-cards/" },
+                { term: "Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043", quizletUrl: "https://quizlet.com/1100723818/cline-vocab-hab-mis-chron-temp-flash-cards/" },
+                { term: "Mor, bene, omni, phil", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959", quizletUrl: "https://quizlet.com/1100722404/cline-vocab-mor-bene-omni-phil-flash-cards/" },
+                { term: "AP Practice Definitions", knowtUrl: "https://knowt.com/flashcards/75248ed1-83cb-4c37-9705-071d844a1cb6", quizletUrl: "https://quizlet.com/1101243163/h-ela-2-ap-practice-definitions-flash-cards/" }
+            ]
+        },
+        {
+            name: "Honors Chemistry 1",
+            cards: [
+                { term: "Unit 1 and 2 Objectives", knowtUrl: "https://knowt.com/flashcards/108f2415-7e4b-408a-a9b9-e1cffb5eb015", quizletUrl: "https://quizlet.com/1100721262/honors-chem-1-unit-2-flash-cards/" },
+                { term: "Unit 2", knowtUrl: "https://knowt.com/flashcards/6e32d56a-f8bc-4863-8256-5182a7d02f7d", quizletUrl: "https://quizlet.com/1100721262/honors-chem-1-unit-2-flash-cards/" },
+                { term: "Unit 3", knowtUrl: "https://knowt.com/flashcards/3a391478-d695-428b-85c3-e4f33250c466", quizletUrl: "https://quizlet.com/1100721654/honors-chem-1-unit-3-flash-cards/" },
+                { term: "Common Polyatomic Ions", knowtUrl: "https://knowt.com/flashcards/f115c6f7-3667-4efe-b969-ee59e877d9cf", quizletUrl: "https://quizlet.com/1100721999/common-polyatomic-ions-flash-cards/" },
+            ]
+        },
+        {
+            name: "AP Euro (Gebhardt)",
+            cards: [
+                { term: "Unit 1 Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/a03bffdf-5fda-481c-8788-60dbef0003ec" },
+                { term: "Unit 2 Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/d85b0678-c9fc-40be-b13e-a2bff19873a5" }
+            ]
+        }
+    ];
+
+    // =================================================================
+    // FLASHCARD RENDERING LOGIC
+    // =================================================================
+
+    function cleanCardTitle(title) {
+        return title.replace("Roots - ", "");
     }
-];
 
-const container = document.getElementById('flashcard-container');
+    function createLink(url, text) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = "_blank";
+        link.className = 'text-primary-blue text-base font-bold';
+        link.textContent = text;
+        return link;
+    }
 
-// =================================================================
-// FLASHCARD RENDERING LOGIC
-// =================================================================
+    function createCardElement(card) {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'block min-h-[220px] p-6 card-gradient-bg rounded-xl shadow-lg transition-all duration-300 transform border border-transparent hover:border-primary-blue group card-glow card-tilt-effect flex flex-col justify-between';
 
-function cleanCardTitle(title) {
-    return title; 
-}
+        const title = document.createElement('h3');
+        title.className = 'text-light-grey text-2xl font-semibold mb-2 group-hover:text-primary-blue transition-colors';
+        title.textContent = cleanCardTitle(card.term);
 
-function createCardElement(card) {
-    const cardElement = document.createElement('a');
-    cardElement.href = card.knowtUrl;
-    cardElement.target = "_blank"; 
-    
-    cardElement.className = 'block min-h-[220px] p-6 card-gradient-bg rounded-xl shadow-lg transition-all duration-300 transform border border-transparent hover:border-primary-blue group card-glow card-tilt-effect cursor-pointer flex flex-col justify-between';
+        const ctaContainer = document.createElement('div');
+        ctaContainer.className = 'mt-4 pt-2';
 
-    const title = document.createElement('h3');
-    title.className = 'text-light-grey text-2xl font-semibold mb-2 group-hover:text-primary-blue transition-colors'; 
-    title.textContent = cleanCardTitle(card.term);
-    
-    const cta = document.createElement('p');
-    cta.className = 'text-primary-blue text-base font-bold mt-4 pt-2'; 
-    cta.textContent = 'Study Knowt Set →'; 
+        if (card.knowtUrl) {
+            ctaContainer.appendChild(createLink(card.knowtUrl, 'Study Knowt Set →'));
+        }
 
-    cardElement.appendChild(title);
-    cardElement.appendChild(cta);
+        if (card.quizletUrl) {
+            if (card.knowtUrl) {
+                const separator = document.createElement('span');
+                separator.className = 'text-medium-grey mx-2';
+                separator.textContent = '|';
+                ctaContainer.appendChild(separator);
+            }
+            ctaContainer.appendChild(createLink(card.quizletUrl, 'Study Quizlet Set →'));
+        }
 
-    return cardElement;
-}
+        cardElement.appendChild(title);
+        cardElement.appendChild(ctaContainer);
 
-function renderFlashcards() { 
-    if (!container) return;
-    container.innerHTML = ''; 
-    
-    subjects.forEach(subjectData => {
-        const sectionHeader = document.createElement('h2');
-        sectionHeader.className = 'text-3xl sm:text-4xl font-extrabold text-primary-blue mt-10 mb-6 pb-2 border-b-2 border-primary-blue'; 
-        sectionHeader.textContent = subjectData.name;
-        container.appendChild(sectionHeader);
+        return cardElement;
+    }
 
-        const grid = document.createElement('div');
-        grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+    function renderFlashcards() {
+        const container = document.getElementById(SELECTORS.flashcardContainer);
+        if (!container) {
+            console.error("Flashcard container not found.");
+            return;
+        }
+        container.innerHTML = '';
 
-        subjectData.cards.forEach(card => {
-            grid.appendChild(createCardElement(card));
+        subjects.forEach(subjectData => {
+            const sectionHeader = document.createElement('h2');
+            sectionHeader.className = 'text-3xl sm:text-4xl font-extrabold text-primary-blue mt-10 mb-6 pb-2 border-b-2 border-primary-blue';
+            sectionHeader.textContent = subjectData.name;
+            container.appendChild(sectionHeader);
+
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
+
+            subjectData.cards.forEach(card => {
+                grid.appendChild(createCardElement(card));
+            });
+
+            container.appendChild(grid);
         });
-
-        container.appendChild(grid);
-    });
-}
+    }
 
 
-// =================================================================
-// KINETIC TEXT LOGIC (MAIN HEADER)
-// =================================================================
+    // =================================================================
+    // KINETIC TEXT LOGIC (MAIN HEADER)
+    // =================================================================
 
-const HEADER_TEXT = "Joel's Flashcards";
-const headerContainer = document.getElementById('header-text-container');
-const KINETIC_SETTINGS = {
-    repelRadius: 120, 
-    maxRepel: 40, 
-    orbitStrength: 0.5
-};
-let chars = []; 
-let lastKnownE = null;
-let ticking = false;
-let mouseX = 0;
-let mouseY = 0;
+    let chars = [];
+    let lastKnownE = null;
+    let ticking = false;
+    let mouseX = 0;
+    let mouseY = 0;
 
-function handleMouseMove(e) {
-    lastKnownE = e;
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            if (lastKnownE) {
-                mouseX = lastKnownE.clientX;
-                mouseY = lastKnownE.clientY;
-                runKineticCalculation(); 
-                ticking = false;
+    function handleMouseMove(e) {
+        lastKnownE = e;
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                if (lastKnownE) {
+                    mouseX = lastKnownE.clientX;
+                    mouseY = lastKnownE.clientY;
+                    runKineticCalculation();
+                    ticking = false;
+                }
+            });
+            ticking = true;
+        }
+    }
+
+    function runKineticCalculation() {
+        const { repelRadius, maxRepel, orbitStrength } = KINETIC_SETTINGS;
+
+        chars.forEach(char => {
+            const rect = char.getBoundingClientRect();
+            const charCenter = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+            };
+            let dx = mouseX - charCenter.x;
+            let dy = mouseY - charCenter.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < repelRadius) {
+                const repelFactor = 1 - (distance / repelRadius);
+                let ux = dx / distance;
+                let uy = dy / distance;
+                let repelX = -ux * maxRepel * repelFactor;
+                let repelY = -uy * maxRepel * repelFactor;
+                let orbitX = -uy * maxRepel * orbitStrength * repelFactor;
+                let orbitY = ux * maxRepel * orbitStrength * repelFactor;
+                let finalX = repelX + orbitX;
+                let finalY = repelY + orbitY;
+
+                char.style.transform = `translate(${finalX}px, ${finalY}px)`;
+            } else {
+                char.style.transform = 'translate(0, 0)';
             }
         });
-        ticking = true;
     }
-}
 
-function runKineticCalculation() {
-    const { repelRadius, maxRepel, orbitStrength } = KINETIC_SETTINGS;
 
-    chars.forEach(char => {
-        const rect = char.getBoundingClientRect();
-        const charCenter = {
-            x: rect.left + rect.width / 2,
-            y: rect.top + rect.height / 2
-        };
-        let dx = mouseX - charCenter.x;
-        let dy = mouseY - charCenter.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < repelRadius) {
-            const repelFactor = 1 - (distance / repelRadius);
-            let ux = dx / distance;
-            let uy = dy / distance;
-            let repelX = -ux * maxRepel * repelFactor;
-            let repelY = -uy * maxRepel * repelFactor;
-            let orbitX = -uy * maxRepel * orbitStrength * repelFactor;
-            let orbitY = ux * maxRepel * orbitStrength * repelFactor;
-            let finalX = repelX + orbitX;
-            let finalY = repelY + orbitY;
-
-            char.style.transform = `translate(${finalX}px, ${finalY}px)`;
-        } else {
-            char.style.transform = 'translate(0, 0)';
+    function initializeKineticText() {
+        const headerContainer = document.getElementById(SELECTORS.headerTextContainer);
+        if (!headerContainer) {
+            console.error("Header text container not found.");
+            return;
         }
-    });
-}
+        headerContainer.innerHTML = '';
 
+        chars = HEADER_TEXT.split('').map((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.className = 'kinetic-char';
 
-function initializeKineticText() {
-    if (!headerContainer) return;
-    headerContainer.innerHTML = ''; 
-    
-    chars = HEADER_TEXT.split('').map((char, index) => {
-        const span = document.createElement('span');
-        span.textContent = char === ' ' ? '\u00A0' : char; 
-        span.className = 'kinetic-char';
+            if (index < 7) {
+                span.classList.add('text-initial-white');
+            } else {
+                span.classList.add('text-primary-blue');
+            }
 
-        if (index < 7) { 
-            span.classList.add('text-initial-white');
-        } else {
-            span.classList.add('text-primary-blue');
-        }
-        
-        headerContainer.appendChild(span);
-        return span;
-    });
-
-    headerContainer.addEventListener('mousemove', handleMouseMove);
-    headerContainer.addEventListener('mouseleave', () => {
-        chars.forEach(char => {
-            char.style.transform = 'translate(0, 0)';
+            headerContainer.appendChild(span);
+            return span;
         });
-    });
-}
 
-
-// =================================================================
-// THEME TOGGLE LOGIC
-// =================================================================
-
-function applyTheme(isLight) {
-    const body = document.body;
-    const toggleCheckbox = document.getElementById('theme-toggle');
-    
-    if (isLight) {
-        body.classList.add('light-mode');
-        toggleCheckbox.checked = true; 
-    } else {
-        body.classList.remove('light-mode');
-        toggleCheckbox.checked = false;
+        headerContainer.addEventListener('mousemove', handleMouseMove);
+        headerContainer.addEventListener('mouseleave', () => {
+            chars.forEach(char => {
+                char.style.transform = 'translate(0, 0)';
+            });
+        });
     }
-}
 
-function initializeTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const isLight = savedTheme === 'light'; 
-    applyTheme(isLight);
-    document.getElementById('theme-toggle').addEventListener('change', (e) => {
-        const isCurrentlyLight = e.target.checked;
-        applyTheme(isCurrentlyLight);
-        localStorage.setItem('theme', isCurrentlyLight ? 'light' : 'dark');
+
+    // =================================================================
+    // THEME TOGGLE LOGIC
+    // =================================================================
+
+    function applyTheme(isLight) {
+        const body = document.body;
+        const toggleCheckbox = document.getElementById(SELECTORS.themeToggle);
+
+        if (isLight) {
+            body.classList.add('light-mode');
+            if (toggleCheckbox) toggleCheckbox.checked = true;
+        } else {
+            body.classList.remove('light-mode');
+            if (toggleCheckbox) toggleCheckbox.checked = false;
+        }
+    }
+
+    function initializeTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const isLight = savedTheme === 'light';
+        applyTheme(isLight);
+        const toggleCheckbox = document.getElementById(SELECTORS.themeToggle);
+        if (toggleCheckbox) {
+            toggleCheckbox.addEventListener('change', (e) => {
+                const isCurrentlyLight = e.target.checked;
+                applyTheme(isCurrentlyLight);
+                localStorage.setItem('theme', isCurrentlyLight ? 'light' : 'dark');
+            });
+        }
+    }
+
+    // =================================================================
+    // MAIN EXECUTION
+    // =================================================================
+
+    document.addEventListener('DOMContentLoaded', () => {
+        try {
+            renderFlashcards();
+            initializeKineticText();
+            initializeTheme();
+        } catch (error) {
+            console.error("An error occurred during initialization:", error);
+        }
     });
-}
+})();
 
-// =================================================================
-// MAIN EXECUTION
-// =================================================================
-
-document.addEventListener('DOMContentLoaded', () => {
-    renderFlashcards();
-    initializeKineticText();
-    initializeTheme(); 
-});
