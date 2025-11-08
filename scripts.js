@@ -17,48 +17,34 @@
     };
 
     // =================================================================
-    // FLASHCARD DATA
+    // DATA HANDLING
     // =================================================================
-    const subjects = [
-        {
-            name: "Honors ELA 2",
-            cards: [
-                { term: "Cide, mal, intra, soph", knowtUrl: "https://knowt.com/flashcards/756470c2-0f86-461c-924f-efe9722802b6", quizletUrl: "https://quizlet.com/1100724141/cline-vocab-cide-mal-intra-soph-flash-cards/" },
-                { term: "Hab, mis, chron, temp", knowtUrl: "https://knowt.com/flashcards/1b54785b-08c7-4625-9090-c3c70b8e4043", quizletUrl: "https://quizlet.com/1100723818/cline-vocab-hab-mis-chron-temp-flash-cards/" },
-                { term: "Mor, bene, omni, phil", knowtUrl: "https://knowt.com/flashcards/2c8f9cf3-c0c7-42e1-a9a3-12fe2dec1959", quizletUrl: "https://quizlet.com/1100722404/cline-vocab-mor-bene-omni-phil-flash-cards/" },
-                { term: "AP Practice Definitions", knowtUrl: "https://knowt.com/flashcards/75248ed1-83cb-4c37-9705-071d844a1cb6", quizletUrl: "https://quizlet.com/1101243163/h-ela-2-ap-practice-definitions-flash-cards/" }
-            ]
-        },
-        {
-            name: "Honors Chemistry 1",
-            cards: [
-                { term: "Unit 1 and 2 Objectives", knowtUrl: "https://knowt.com/flashcards/108f2415-7e4b-408a-a9b9-e1cffb5eb015", quizletUrl: "https://quizlet.com/1100721262/honors-chem-1-unit-2-flash-cards/" },
-                { term: "Unit 2", knowtUrl: "https://knowt.com/flashcards/6e32d56a-f8bc-4863-8256-5182a7d02f7d", quizletUrl: "https://quizlet.com/1100721262/honors-chem-1-unit-2-flash-cards/" },
-                { term: "Unit 3", knowtUrl: "https://knowt.com/flashcards/3a391478-d695-428b-85c3-e4f33250c466", quizletUrl: "https://quizlet.com/1100721654/honors-chem-1-unit-3-flash-cards/" },
-                { term: "Common Polyatomic Ions", knowtUrl: "https://knowt.com/flashcards/f115c6f7-3667-4efe-b969-ee59e877d9cf", quizletUrl: "https://quizlet.com/1100721999/common-polyatomic-ions-flash-cards/" },
-            ]
-        },
-        {
-            name: "AP Euro (Gebhardt)",
-            cards: [
-                { term: "Unit 1 Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/a03bffdf-5fda-481c-8788-60dbef0003ec" },
-                { term: "Unit 2 Key Terms and Ideas", knowtUrl: "https://knowt.com/flashcards/d85b0678-c9fc-40be-b13e-a2bff19873a5" }
-            ]
+    async function fetchSubjects() {
+        try {
+            const response = await fetch('data.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Could not fetch subjects:", error);
+            return []; // Return empty array on error
         }
-    ];
+    }
 
     // =================================================================
     // FLASHCARD RENDERING LOGIC
     // =================================================================
 
     function cleanCardTitle(title) {
-        return title.replace("Roots - ", "");
+        return title.replace(/Roots? - /, "");
     }
 
     function createLink(url, text) {
         const link = document.createElement('a');
         link.href = url;
         link.target = "_blank";
+        link.rel = "noopener noreferrer"; // Added for security
         link.className = 'text-primary-blue text-base font-bold';
         link.textContent = text;
         return link;
@@ -95,13 +81,15 @@
         return cardElement;
     }
 
-    function renderFlashcards() {
+    async function renderFlashcards() {
         const container = document.getElementById(SELECTORS.flashcardContainer);
         if (!container) {
             console.error("Flashcard container not found.");
             return;
         }
         container.innerHTML = '';
+
+        const subjects = await fetchSubjects();
 
         subjects.forEach(subjectData => {
             const sectionHeader = document.createElement('h2');
@@ -255,4 +243,3 @@
         }
     });
 })();
-
